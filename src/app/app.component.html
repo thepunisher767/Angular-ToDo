@@ -14,7 +14,11 @@ Enter new task: <input [(ngModel)]="userEntry" id="text"/>
 <ol class="todoStyle">
 <div *ngFor="let todo of toDos; index as i">
   <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
-  {{todo.task}}
+  <button class="buttonstyle2" *ngIf="!todo.completed" (click)="deleteTask(i)">Remove</button>
+  <div *ngIf="todo.completed;else nonComplete"><del>{{todo.task}}</del></div>
+  <ng-template #nonComplete>{{todo.task}}</ng-template>
 </div>
 </ol>
+<br>
+<div class="todoStyle2" *ngIf="congrats()">GRATS!!! YOU DID ALL THE THINGS!!!!!</div>
 </div>

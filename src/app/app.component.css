@@ -21,7 +21,7 @@ h1 {
 }
  
 .buttonstyle{
-    background-color: gainsboro;
+    background-color: rgb(218, 169, 124);
     border-radius: 10px;
     color:#ff0000;
     font-family: sans-serif;
@@ -31,10 +31,23 @@ h1 {
     border-color: #ff0000;
     
 }
+
+.buttonstyle2{
+    background-color: rgb(218, 169, 124);
+    border-radius: 10px;
+    color:#ff0000;
+    font-family: sans-serif;
+    font-size: small;
+    font-weight: 200;
+    text-align: center;
+    border-color: #ff0000;
+    float: right;
+    
+}
  
 .todoStyle{
     border-radius: 5px;
-    background-color: gainsboro;
+    background-color: rgb(218, 169, 124);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     width: 50%;
     margin: auto;
@@ -43,12 +56,16 @@ h1 {
 
 .todoStyle2{
     border-radius: 5px;
-    background-color: gainsboro;
+    background-color: rgb(218, 169, 124);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     width: 50%;
     margin: auto;
     padding: 10px;
     text-align: center;
+    color: rgb(212, 0, 0);
+    text-shadow: rgba(0,0,0,0.75);
+    font-weight: bold;
+    
 }
  
 .addtodo{
@@ -61,7 +78,7 @@ h1 {
  
 .addButton{
     width: 100%;
-    background-color: gainsboro;
+    background-color: rgb(218, 169, 124);
     background-image: linear-gradient(to right, #ff0000, #ff0000 );
     color: white;
     font-family: sans-serif;

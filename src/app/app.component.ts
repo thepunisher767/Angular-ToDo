@@ -9,6 +9,8 @@ import { toUnicode } from 'punycode';
 export class AppComponent {
   title = 'TODO List';
   userEntry: string = "";
+  allCompleted: boolean;
+  verifyArray: boolean[];
 
   toDos: ToDo[] = [
     {task: 'Wash dishes', completed: false},
@@ -27,6 +29,29 @@ export class AppComponent {
       this.toDos.push(newtask)
     }
     this.userEntry = '';
+  }
+
+  deleteTask = function(i) {
+    this.toDos.splice(i, 1)
+  }
+
+  congrats = function() {
+    /*for(let item of this.toDos) {
+      if (item.completed == true) {
+        this.verifyArray.push(true)
+      }
+      else{
+        this.verifyArray.push(false)
+      } 
+    }
+    for(let verify of this.verifyArray) {
+      if(verify = true) {
+        this.allCompleted = true;
+      }
+      else {
+        this.allCompleted = false;
+      }
+    }*/
   }
 }
 
