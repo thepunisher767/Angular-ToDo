@@ -7,20 +7,57 @@ import { toUnicode } from 'punycode';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TODO List';
+  title = 'To-Do List';
   userEntry: string = "";
-  allCompleted: boolean;
-  verifyArray: boolean[];
+  editEntry: string = "";
+  searchEntry: string = "";
+  editOn: boolean = false;
+  searchOn: boolean = false;
+  index: number;
+  searchList: ToDo[] = [];
 
   toDos: ToDo[] = [
-    {task: 'Wash dishes', completed: false},
-    {task: 'Wash car', completed: true},
-    {task: 'Clean toilet', completed: false},
-    {task: 'Take out garbage', completed: false}
+    {task: 'Wash dishes', completed: false, edit: false},
+    {task: 'Wash car', completed: true, edit: false},
+    {task: 'Clean toilet', completed: false, edit: false},
+    {task: 'Take out garbage', completed: false, edit:false}
   ];
+
+  search = function(search) {
+    this.searchList = [];
+    this.searchOn = true;
+    let searchReg = new RegExp(search, "i");
+    for (let s of this.toDos) {
+      if (searchReg.test(s.task)) {
+      this.searchList.push(s)
+      }
+    }
+  }
+
+  clearSearch = function() {
+    this.searchOn = false;
+    this.searchList = [];
+  }
 
   completeTask = function(i) {
     this.toDos[i].completed = true;
+  }
+
+  incompleteTask = function(i) {
+    this.toDos[i].completed = false;
+  }
+
+  setEdit = function(i) {
+    this.editOn = true;
+    this.index = i;
+  }
+
+  editTask = function(i) {
+    this.toDos[i].task = this.editEntry;
+    this.toDos[i].edit = true;
+    this.editOn = false;
+    this.index = null;
+    this.editEntry = '';
   }
 
   addTask = function() {
@@ -36,26 +73,15 @@ export class AppComponent {
   }
 
   congrats = function() {
-    /*for(let item of this.toDos) {
-      if (item.completed == true) {
-        this.verifyArray.push(true)
-      }
-      else{
-        this.verifyArray.push(false)
-      } 
+    if (this.toDos.some(t => t.completed === false)) {
+      return false;
     }
-    for(let verify of this.verifyArray) {
-      if(verify = true) {
-        this.allCompleted = true;
-      }
-      else {
-        this.allCompleted = false;
-      }
-    }*/
+    return true;
   }
 }
 
 interface ToDo {
   task: string,
-  completed: boolean
+  completed: boolean,
+  edit: boolean
 };

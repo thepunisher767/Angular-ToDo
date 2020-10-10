@@ -5,20 +5,50 @@
 <br>
 
 <div class="todoStyle">
-Enter new task: <input [(ngModel)]="userEntry" id="text"/>
-<button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="addTask()">Add Task</button><br />
+Search: <input [(ngModel)]="searchEntry" id="text"/>
+<button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="search(searchEntry)">Search</button>
+<button class="buttonstyle" (click)="clearSearch()">Clear search</button><br>
 </div>
 
 
 <br>
+<div *ngIf="!editOn && !searchOn">
 <ol class="todoStyle">
 <div *ngFor="let todo of toDos; index as i">
   <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
-  <button class="buttonstyle2" *ngIf="!todo.completed" (click)="deleteTask(i)">Remove</button>
-  <div *ngIf="todo.completed;else nonComplete"><del>{{todo.task}}</del></div>
+  <button class="buttonstyle2" (click)="deleteTask(i)">Remove</button>
+  <button class="buttonstyle2" (click)="setEdit(i)">Edit</button>
+  <div *ngIf="todo.completed;else nonComplete"><button class="buttonstyle" *ngIf="todo.completed" (click)="incompleteTask(i)">Mark as Incomplete</button><del>{{todo.task}}</del></div>
   <ng-template #nonComplete>{{todo.task}}</ng-template>
 </div>
 </ol>
+</div>
+
+<div *ngIf="searchOn">
+  <ol class="todoStyle">
+  <div *ngFor="let todo of searchList; index as i">
+    <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
+    <button class="buttonstyle2" (click)="deleteTask(i)">Remove</button>
+    <button class="buttonstyle2" (click)="setEdit(i)">Edit</button>
+    <div *ngIf="todo.completed;else nonComplete"><button class="buttonstyle" *ngIf="todo.completed" (click)="incompleteTask(i)">Mark as Incomplete</button><del>{{todo.task}}</del></div>
+    <ng-template #nonComplete>{{todo.task}}</ng-template>
+  </div>
+  </ol>
+  </div>
+
+<div *ngIf="editOn" class="todoStyle">
+  <span><b>Editing task:</b> {{toDos[index].task}}</span><br><br>
+  <input [(ngModel)]="editEntry" id="text"/>
+<button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="editTask(index)">Save</button><br />
+</div>
+
 <br>
-<div class="todoStyle2" *ngIf="congrats()">GRATS!!! YOU DID ALL THE THINGS!!!!!</div>
+<div *ngIf="!searchOn" class="todoStyle">
+  Enter new task: <input [(ngModel)]="userEntry" id="text"/>
+  <button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="addTask()">Add Task</button><br />
+  </div>
+
+
+<br>
+<div class="todoStyle2" *ngIf="congrats() && !editOn && !searchOn">GRATS!!! YOU DID ALL THE THINGS!!!!!</div>
 </div>
