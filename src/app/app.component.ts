@@ -38,7 +38,7 @@ export class AppComponent {
   clearSearch = function() {
     this.searchOn = false;
     this.searchList = [];
-    this.search = '';
+    this.searchEntry = '';
   }
 
   completeTask = function(i) {
@@ -55,11 +55,14 @@ export class AppComponent {
   }
 
   editTask = function(i) {
-    this.toDos[i].task = this.editEntry;
+    if (!!this.editEntry) {
+      this.toDos[i].task = this.editEntry;
     this.toDos[i].edit = true;
     this.editOn = false;
     this.index = null;
     this.editEntry = '';
+    this.search(this.searchEntry);
+    }
   }
 
   addTask = function() {

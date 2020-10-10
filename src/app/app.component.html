@@ -24,7 +24,7 @@ Search: <input [(ngModel)]="searchEntry" id="text"/>
 </ol>
 </div>
 
-<div *ngIf="searchOn"> <!--Only show when search is active-->
+<div *ngIf="searchOn && !editOn"> <!--Only show when search is active-->
   <ol class="todoStyle">
   <div *ngFor="let todo of searchList; index as i">
     <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
