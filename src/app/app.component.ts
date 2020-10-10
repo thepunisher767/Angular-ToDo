@@ -85,7 +85,9 @@ export class AppComponent {
 
   deleteTask = function(i) {
     this.toDos.splice(i, 1)
-    this.search(this.searchEntry);
+    if(this.searchOn) {
+      this.search(this.searchEntry);
+    }
   }
 
 
