@@ -12,7 +12,7 @@ Search: <input [(ngModel)]="searchEntry" id="text"/>
 
 
 <br>
-<div *ngIf="!editOn && !searchOn">
+<div *ngIf="!editOn && !searchOn"> <!--Only show if edit and search mode are off-->
 <ol class="todoStyle">
 <div *ngFor="let todo of toDos; index as i">
   <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
@@ -24,7 +24,7 @@ Search: <input [(ngModel)]="searchEntry" id="text"/>
 </ol>
 </div>
 
-<div *ngIf="searchOn">
+<div *ngIf="searchOn"> <!--Only show when search is active-->
   <ol class="todoStyle">
   <div *ngFor="let todo of searchList; index as i">
     <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
@@ -36,14 +36,14 @@ Search: <input [(ngModel)]="searchEntry" id="text"/>
   </ol>
   </div>
 
-<div *ngIf="editOn" class="todoStyle">
+<div *ngIf="editOn" class="todoStyle"> <!--Only show when edit is active-->
   <span><b>Editing task:</b> {{toDos[index].task}}</span><br><br>
   <input [(ngModel)]="editEntry" id="text"/>
 <button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="editTask(index)">Save</button><br />
 </div>
 
 <br>
-<div *ngIf="!searchOn" class="todoStyle">
+<div class="todoStyle">
   Enter new task: <input [(ngModel)]="userEntry" id="text"/>
   <button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="addTask()">Add Task</button><br />
   </div>

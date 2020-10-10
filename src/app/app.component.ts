@@ -1,3 +1,4 @@
+import { SelectorMatcher } from '@angular/compiler';
 import { Component, ɵisBoundToModule__POST_R3__ } from '@angular/core';
 import { toUnicode } from 'punycode';
 
@@ -37,6 +38,7 @@ export class AppComponent {
   clearSearch = function() {
     this.searchOn = false;
     this.searchList = [];
+    this.search = '';
   }
 
   completeTask = function(i) {
@@ -66,6 +68,7 @@ export class AppComponent {
       this.toDos.push(newtask)
     }
     this.userEntry = '';
+    this.search(this.searchEntry);
   }
 
   deleteTask = function(i) {
