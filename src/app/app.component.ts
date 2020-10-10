@@ -18,10 +18,10 @@ export class AppComponent {
   searchList: ToDo[] = [];
 
   toDos: ToDo[] = [
-    {task: 'Wash dishes', completed: false, edit: false},
-    {task: 'Wash car', completed: true, edit: false},
-    {task: 'Clean toilet', completed: false, edit: false},
-    {task: 'Take out garbage', completed: false, edit:false}
+    {task: 'Wash dishes', completed: false},
+    {task: 'Wash car', completed: true},
+    {task: 'Clean toilet', completed: false},
+    {task: 'Take out garbage', completed: false}
   ];
 
   search = function(search) {
@@ -41,6 +41,12 @@ export class AppComponent {
     this.searchEntry = '';
   }
 
+  setEdit = function(i) {
+    this.editOn = true;
+    this.index = i;
+  }
+
+
   completeTask = function(i) {
     this.toDos[i].completed = true;
   }
@@ -49,19 +55,20 @@ export class AppComponent {
     this.toDos[i].completed = false;
   }
 
-  setEdit = function(i) {
-    this.editOn = true;
-    this.index = i;
-  }
-
   editTask = function(i) {
     if (!!this.editEntry) {
       this.toDos[i].task = this.editEntry;
-    this.toDos[i].edit = true;
+      this.editOn = false;
+      this.editEntry = '';
+      if(this.searchOn) {
+        this.search(this.searchEntry);
+      }
+    }
+  }
+  editOff = function() {
     this.editOn = false;
-    this.index = null;
-    this.editEntry = '';
-    this.search(this.searchEntry);
+    if(this.searchOn) {
+      this.search(this.searchEntry);
     }
   }
 
@@ -71,12 +78,63 @@ export class AppComponent {
       this.toDos.push(newtask)
     }
     this.userEntry = '';
-    this.search(this.searchEntry);
+    if(this.searchOn) {
+      this.search(this.searchEntry);
+    }
   }
 
   deleteTask = function(i) {
     this.toDos.splice(i, 1)
+    this.search(this.searchEntry);
   }
+
+
+  searchCompleteTask = function(i) {
+    let taskIndex: number = 0;
+    for (let todo of this.toDos) {
+      if (todo.task == this.searchList[i].task) {
+        this.toDos[taskIndex].completed = true;
+        return;
+      }
+      taskIndex++;
+    }
+  }
+
+  searchIncompleteTask = function(i) {
+    let taskIndex: number = 0;
+    for (let todo of this.toDos) {   
+      if (todo.task == this.searchList[i].task) {
+        this.toDos[taskIndex].completed = false;
+        return;
+      }
+      taskIndex++;  
+    }
+  }
+
+  searchSetEdit = function(i) {
+    let taskIndex: number = 0;
+    for (let todo of this.toDos) {
+      if (todo.task == this.searchList[i].task) {
+        this.index = taskIndex;
+        this.editOn = true;
+        return;
+      }
+      taskIndex++;
+    }
+  }
+
+  searchDeleteTask = function(i) {
+    let taskIndex: number = 0;
+    for (let todo of this.toDos) {
+      if (todo.task == this.searchList[i].task) {
+        this.toDos.splice(taskIndex, 1)
+        this.search(this.searchEntry);
+        return;
+      }
+      taskIndex++;
+    }
+  }
+
 
   congrats = function() {
     if (this.toDos.some(t => t.completed === false)) {
@@ -88,6 +146,5 @@ export class AppComponent {
 
 interface ToDo {
   task: string,
-  completed: boolean,
-  edit: boolean
+  completed: boolean
 };

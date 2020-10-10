@@ -4,10 +4,15 @@
 <h1 class="todoStyle2">{{title}}</h1>
 <br>
 
-<div class="todoStyle">
+<br>
+<h1 class="todoStyle2">Current index = {{index}}, Overall Length: {{toDos.length}}, Search Length: {{searchList.length}} Edit: {{editOn}} Search: {{searchOn}}</h1>
+<br>
+
+<div class="todoStyle" *ngIf="!editOn">
 Search: <input [(ngModel)]="searchEntry" id="text"/>
 <button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="search(searchEntry)">Search</button>
 <button class="buttonstyle" (click)="clearSearch()">Clear search</button><br>
+<span *ngIf="searchOn">Current Search: {{searchEntry}}</span>
 </div>
 
 
@@ -26,18 +31,18 @@ Search: <input [(ngModel)]="searchEntry" id="text"/>
 
 <div *ngIf="searchOn && !editOn"> <!--Only show when search is active-->
   <ol class="todoStyle">
-  <div *ngFor="let todo of searchList; index as i">
-    <button class="buttonstyle" *ngIf="!todo.completed" (click)="completeTask(i)">Mark as complete</button>
-    <button class="buttonstyle2" (click)="deleteTask(i)">Remove</button>
-    <button class="buttonstyle2" (click)="setEdit(i)">Edit</button>
-    <div *ngIf="todo.completed;else nonComplete"><button class="buttonstyle" *ngIf="todo.completed" (click)="incompleteTask(i)">Mark as Incomplete</button><del>{{todo.task}}</del></div>
-    <ng-template #nonComplete>{{todo.task}}</ng-template>
+  <div *ngFor="let search of searchList; index as i">
+    <button class="buttonstyle" *ngIf="!search.completed" (click)="searchCompleteTask(i)">Mark as complete</button>
+    <button class="buttonstyle2" (click)="searchDeleteTask(i)">Remove</button>
+    <button class="buttonstyle2" (click)="searchSetEdit(i)">Edit</button>
+    <div *ngIf="search.completed;else nonComplete"><button class="buttonstyle" *ngIf="search.completed" (click)="searchIncompleteTask(i)">Mark as Incomplete</button><del>{{search.task}}</del></div>
+    <ng-template #nonComplete>{{search.task}}</ng-template>
   </div>
   </ol>
   </div>
 
 <div *ngIf="editOn" class="todoStyle"> <!--Only show when edit is active-->
-  <span><b>Editing task:</b> {{toDos[index].task}}</span><br><br>
+  <span><b>Editing task:</b> {{toDos[index].task}} </span><button class="buttonstyle" (click)="editOff()">Back to list</button><br><br>
   <input [(ngModel)]="editEntry" id="text"/>
 <button class="buttonstyle" onclick="document.getElementById('text').value=''" (click)="editTask(index)">Save</button><br />
 </div>
